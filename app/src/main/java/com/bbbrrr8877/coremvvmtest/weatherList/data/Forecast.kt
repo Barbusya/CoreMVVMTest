@@ -21,6 +21,8 @@ data class Day (
     val maxTempC: Float = 0f,
     @SerializedName("mintemp_c")
     val minTempC: Float = 0f,
+    @SerializedName("avgtemp_c")
+    val avgTempC: Float = 0f,
 )
 
 data class Hours(

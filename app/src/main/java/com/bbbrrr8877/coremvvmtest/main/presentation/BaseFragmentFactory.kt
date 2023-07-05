@@ -1,6 +1,7 @@
 package com.bbbrrr8877.coremvvmtest.main.presentation
 
 import androidx.fragment.app.FragmentManager
+import com.bbbrrr8877.coremvvmtest.weatherList.presentation.WeatherListNavigationScreen
 import com.github.johnnysc.coremvvm.presentation.FragmentFactory
 import com.github.johnnysc.coremvvm.presentation.NavigationScreen
 
@@ -13,6 +14,6 @@ class BaseFragmentFactory(
 ) {
 
     override val screens: List<NavigationScreen> = listOf(
-        //Todo screens
+        WeatherListNavigationScreen()
     )
 }

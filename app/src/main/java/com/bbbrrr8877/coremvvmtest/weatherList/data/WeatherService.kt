@@ -5,14 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WeatherService {
-    @GET("api.weatherapi.com/v1/current.json? &q=London&aqi=no")
-    suspend fun weatherList(
-        @Query("key") accessKey: String = "971bcc646b804390ba3105555220401"
-    ) : WeatherCloud.Base
-
-    @GET("v1/forecast.json?")
-    fun fetchWeather(@Query("q") query: String): WeatherCloud.Base
-
-    @GET("v1/forecast.json?")
-    fun searchWeather(@Query("q") query: String): WeatherCloud.Base
+    @GET("v1/forecast.json?key=971bcc646b804390ba3105555220401&q=London&days=5&aqi=no&alerts=no")
+    suspend fun weatherList() : WeatherCloud.Base
 }

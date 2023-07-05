@@ -20,6 +20,10 @@ class MainActivity : BackPress.Activity<MainViewModel>(), ProvideViewModel {
 
         viewModel = provideViewModel(MainViewModel::class.java, this)
 
+        viewModel.observeNavigation(this) { navigationScreen ->
+            fragmentFactory.fragment(navigationScreen)
+        }
+
         val progress = findViewById<View>(R.id.progressLayout)
 
         viewModel.observeProgress(this) {visibility ->

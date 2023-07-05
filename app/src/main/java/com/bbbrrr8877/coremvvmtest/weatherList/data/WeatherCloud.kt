@@ -2,6 +2,7 @@ package com.bbbrrr8877.coremvvmtest.weatherList.data
 
 import com.barbusya.android.weatherapp.data.Current
 import com.barbusya.android.weatherapp.data.Forecast
+import com.barbusya.android.weatherapp.data.ForecastDays
 import com.barbusya.android.weatherapp.data.Location
 import com.bbbrrr8877.coremvvmtest.weatherList.domain.WeatherListDomain
 import com.google.gson.annotations.SerializedName
@@ -21,27 +22,26 @@ interface WeatherCloud {
         @SerializedName("current")
         val current: Current,
         @SerializedName("forecast")
-        var forecast: Forecast,
+        val forecast: Forecast,
     ) : WeatherCloud {
-        val name = location.city
-        val date = current.
+
         override fun <T> map(mapper: Mapper<T>): T =
-            mapper.map(name, date, tempC)
+            mapper.map(location.city, current.lastUpdate, forecast.forecastDays)
     }
 
     interface Mapper<T> {
 
-        fun map(base: String, date: String, weatherList: List<String>): T
+        fun map(name: String, date: String, weatherList: List<ForecastDays>): T
 
         class Base : Mapper<WeatherListDomain> {
             override fun map(
-                base: String,
+                name: String,
                 date: String,
-                weatherList: List<String>
+                weatherList: List<ForecastDays>
             ): WeatherListDomain {
                 val result =
-                    weatherList.map { it }
-                return WeatherListDomain.Base(base, date, result)
+                    weatherList.map { "${it.date}    temperature: ${it.day.avgTempC.toInt()}°C" }
+                return WeatherListDomain.Base(name, date, result)
             }
         }
     }

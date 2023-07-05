@@ -34,7 +34,7 @@ class WeatherListViewModel(
         canGoBack = false
         progressCommunication.map(Visibility.Visible())
         handle {
-            //Todo interactor
+            interactor.weatherList(atFinish){communication.map(it)}
         }
     }
 

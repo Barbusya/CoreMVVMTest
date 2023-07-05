@@ -1,5 +1,6 @@
 package com.bbbrrr8877.coremvvmtest.sl
 
+import android.util.Log
 import com.bbbrrr8877.coremvvmtest.weatherList.data.*
 import com.bbbrrr8877.coremvvmtest.weatherList.domain.WeatherListDomain
 import com.bbbrrr8877.coremvvmtest.weatherList.domain.WeatherListInteractor
@@ -10,14 +11,13 @@ import com.github.johnnysc.coremvvm.presentation.HandleUiError
 import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.coremvvm.sl.Module
 
+
 class WeatherModule(
     private val coreModule: CoreModule,
-    private val cache: WeatherCache.Save,
 ) : Module<WeatherListViewModel> {
 
     override fun viewModel(): WeatherListViewModel {
         val repository = BaseWeatherListRepository(
-            cache,
             WeatherCloudDataSource.Base(
                 ProvideWeatherService.Base(coreModule).weatherService(),
                 HandleDomainError()

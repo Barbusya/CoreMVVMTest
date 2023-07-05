@@ -13,7 +13,7 @@ interface ProvideWeatherService {
         retrofitBuilder
     ), ProvideWeatherService {
 
-        override fun baseUrl(): String = "https://www.weatherapi.com/"
+        override fun baseUrl(): String = "https://api.weatherapi.com/"
 
         override fun weatherService(): WeatherService = service(WeatherService::class.java)
     }

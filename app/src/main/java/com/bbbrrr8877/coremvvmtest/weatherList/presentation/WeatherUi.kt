@@ -14,6 +14,9 @@ class WeatherUi(
 
     override fun show(vararg views: MyView) {
         views[0].show(text)
+        views[0].handleClick{
+
+        }
     }
 
     override fun type(): Int = 1
