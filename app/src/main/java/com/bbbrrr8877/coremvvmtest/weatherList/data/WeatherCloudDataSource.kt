@@ -5,7 +5,7 @@ import com.github.johnnysc.coremvvm.data.HandleError
 
 interface WeatherCloudDataSource {
 
-    suspend fun latestWeatherList(): WeatherCloud
+    suspend fun latestWeatherList(): WeatherCloud.Base
 
     class Base(
         private val weatherService: WeatherService,
@@ -13,7 +13,8 @@ interface WeatherCloudDataSource {
     ) : CloudDataSource.Abstract(handleError), WeatherCloudDataSource {
 
         override suspend fun latestWeatherList() = handle {
-            weatherService.weatherList()
+            val request = weatherService.weatherList()
+            return@handle WeatherCloud.Base(request)
         }
     }
 }

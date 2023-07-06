@@ -17,16 +17,11 @@ interface WeatherCloud {
     }
 
     data class Base(
-        @SerializedName("location")
-        val location: Location,
-        @SerializedName("current")
-        val current: Current,
-        @SerializedName("forecast")
-        val forecast: Forecast,
+       val weatherRequest: WeatherRequest
     ) : WeatherCloud {
 
         override fun <T> map(mapper: Mapper<T>): T =
-            mapper.map(location.city, current.lastUpdate, forecast.forecastDays)
+            mapper.map(weatherRequest.location.city, weatherRequest.current.lastUpdate, weatherRequest.forecast.forecastDays)
     }
 
     interface Mapper<T> {
