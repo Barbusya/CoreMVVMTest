@@ -1,11 +1,8 @@
 package com.bbbrrr8877.coremvvmtest.weatherList.data
 
-import com.barbusya.android.weatherapp.data.Current
-import com.barbusya.android.weatherapp.data.Forecast
+import android.util.Log
 import com.barbusya.android.weatherapp.data.ForecastDays
-import com.barbusya.android.weatherapp.data.Location
 import com.bbbrrr8877.coremvvmtest.weatherList.domain.WeatherListDomain
-import com.google.gson.annotations.SerializedName
 
 interface WeatherCloud {
 
@@ -13,7 +10,7 @@ interface WeatherCloud {
 
     class Empty : WeatherCloud {
         override fun <T> map(mapper: Mapper<T>): T =
-            mapper.map("none", "none", emptyList())
+            mapper.map("none", "none", emptyList(), "none")
     }
 
     data class Base(
@@ -21,22 +18,23 @@ interface WeatherCloud {
     ) : WeatherCloud {
 
         override fun <T> map(mapper: Mapper<T>): T =
-            mapper.map(weatherRequest.location.city, weatherRequest.current.lastUpdate, weatherRequest.forecast.forecastDays)
+            mapper.map(weatherRequest.location.city, weatherRequest.current.lastUpdate, weatherRequest.forecast.forecastDays, weatherRequest.current.currentCondition.iconUrl)
     }
 
     interface Mapper<T> {
 
-        fun map(name: String, date: String, weatherList: List<ForecastDays>): T
+        fun map(name: String, date: String, weatherList: List<ForecastDays>, iconUrl: String): T
 
         class Base : Mapper<WeatherListDomain> {
             override fun map(
                 name: String,
                 date: String,
-                weatherList: List<ForecastDays>
+                weatherList: List<ForecastDays>,
+                iconUrl: String
             ): WeatherListDomain {
                 val result =
                     weatherList.map { "${it.date}    temperature: ${it.day.avgTempC.toInt()}°C" }
-                return WeatherListDomain.Base(name, date, result)
+                return WeatherListDomain.Base(name, date, result, iconUrl)
             }
         }
     }

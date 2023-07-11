@@ -8,7 +8,7 @@ data class Current(
     @SerializedName("temp_c")
     val temperature: Float = 0f,
     @SerializedName("condition")
-    val currentCondition: CurrentCondition? = null,
+    val currentCondition: CurrentCondition,
     @SerializedName("feelslike_c")
     val feelsLike: Float = 0f,
 )
@@ -16,5 +16,7 @@ data class Current(
 data class CurrentCondition(
     @SerializedName("text")
     val currentConditionText: String = "",
+    @SerializedName("icon")
+    val iconUrl: String = "",
 
-)
+    )

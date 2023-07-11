@@ -13,9 +13,10 @@ interface WeatherListDomain {
     class Base(
         private val name: String,
         private val date: String,
-        private val list: List<String>
+        private val list: List<String>,
+        private val iconUrl: String
     ) : WeatherListDomain {
-        override fun <T> map(mapper: Mapper<T>): T = mapper.map(name, date, list)
+        override fun <T> map(mapper: Mapper<T>): T = mapper.map(name, date, list, iconUrl)
     }
 
     interface Mapper<T> {
@@ -23,15 +24,16 @@ interface WeatherListDomain {
         fun map(
             name: String,
             date: String,
-            list: List<String>
+            list: List<String>,
+            iconUrl: String
         ): T
 
         class Base() : Mapper<WeatherListUi> {
-            override fun map(name: String, date: String, list: List<String>): WeatherListUi {
-                val finalList = mutableListOf<ItemUi>(WeatherListDateUi("$name Last update: $date"))
+            override fun map(name: String, date: String, list: List<String>, iconUrl: String): WeatherListUi {
+                val finalList = mutableListOf<ItemUi>(WeatherListDateUi("$name -> Last update: $date"))
                 finalList.addAll(list.map {
                     WeatherUi(
-                        it, it
+                        it, it, "https:$iconUrl"
                     )
                 })
                 return WeatherListUi.Base(finalList)
